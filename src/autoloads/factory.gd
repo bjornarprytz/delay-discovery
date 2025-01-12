@@ -5,10 +5,16 @@ extends Node2D
 
 
 @onready var tileSpawner: PackedScene = preload("res://map/tile.tscn")
+@onready var ballSpawner: PackedScene = preload("res://ball.tscn")
 
 func tile(tileInfo: TileInfo) -> Tile:
-    var tileScene = tileSpawner.instantiate() as Tile
+	var tileScene = tileSpawner.instantiate() as Tile
 
-    tileScene.type = tileInfo.terrainType
+	tileScene.type = tileInfo.terrainType
 
-    return tileScene
+	return tileScene
+
+func ball() -> Ball:
+	var ballScene = ballSpawner.instantiate() as Ball
+	
+	return ballScene

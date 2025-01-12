@@ -5,6 +5,8 @@ extends Polygon2D
 signal clicked
 signal hovered(state: bool)
 
+signal points_updated(points:PackedVector2Array)
+
 @export var size: float = 25.0:
 	get:
 		return size
@@ -83,5 +85,7 @@ func _update_polygon():
 	polygon = points
 	border.points = points
 	clickableShape.polygon = points
+	
+	points_updated.emit(points)
 	
 	queue_redraw()

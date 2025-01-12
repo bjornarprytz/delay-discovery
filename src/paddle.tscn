@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://crh12xrqxu5pj"]
+
+[ext_resource type="Script" path="res://paddle.gd" id="1_6jjh0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fsyeq"]
+corner_radius_top_left = 9
+corner_radius_top_right = 9
+corner_radius_bottom_right = 9
+corner_radius_bottom_left = 9
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ncc7w"]
+bounce = 1.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fypn4"]
+radius = 9.0
+height = 70.0
+
+[node name="Paddle" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_6jjh0")
+
+[node name="Visual" type="Panel" parent="."]
+layout_mode = 0
+offset_left = -35.0
+offset_right = 35.0
+offset_bottom = 18.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_fsyeq")
+
+[node name="RB" type="StaticBody2D" parent="."]
+position = Vector2(0, 2)
+physics_material_override = SubResource("PhysicsMaterial_ncc7w")
+
+[node name="Shape" type="CollisionShape2D" parent="RB"]
+position = Vector2(0, 7)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_fypn4")

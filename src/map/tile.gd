@@ -1,10 +1,50 @@
 class_name Tile
 extends Node2D
 
-signal onHovered(tile: Tile)
-signal onClicked(tile: Tile)
-
 var map: Map
+
+signal state_changed(old_state, new_state)
+
+enum State {
+	Init,
+	Hidden,
+	Placed,
+	Discovered
+}
+
+var state: State:
+	get:
+		return state
+	set(value):
+		if (value == state):
+			return
+		var old_state = state
+		state = value
+		match (state):
+			State.Hidden:
+				visible = false
+				body_shape.set_deferred("disabled", true)
+				effect_area_shape.set_deferred("disabled", true)
+			State.Placed:
+				visible = true
+				body_shape.set_deferred("disabled", false)
+				effect_area_shape.set_deferred("disabled", true)
+			State.Discovered:
+				body_shape.set_deferred("disabled", true)
+				effect_area_shape.set_deferred("disabled", false)
+				
+				match type:
+					TileInfo.TerrainType.Forest:
+						texture.texture = preload("res://assets/img/Forest.jpeg")
+					TileInfo.TerrainType.Water:
+						texture.texture = preload("res://assets/img/Water.jpeg")
+					TileInfo.TerrainType.Mountain:
+						texture.texture = preload("res://assets/img/Mountain.jpeg")
+					TileInfo.TerrainType.Plains:
+						texture.texture = preload("res://assets/img/Plains.jpeg")
+		
+				texture.position += (Utility.random_vector() * 50.0)
+		state_changed.emit(old_state, state)
 
 @onready var shape: RegularPolygon:
 	get:
@@ -16,24 +56,21 @@ var map: Map
 	set(value):
 		shape.size = value
 
+@onready var body: StaticBody2D = %Body
+@onready var body_shape: CollisionPolygon2D = %Body/Shape
+
+@onready var effect_area: Area2D = %EffectArea
+@onready var effect_area_shape: CollisionPolygon2D = %EffectArea/Shape
+
+@onready var texture: TextureRect = %Texture
+
 var type: TileInfo.TerrainType:
 	set(value):
-
 		type = value
 
-		match type:
-			TileInfo.TerrainType.Forest:
-				shape.modulate = Color.LIGHT_GREEN
-			TileInfo.TerrainType.Water:
-				shape.modulate = Color.LIGHT_BLUE
-			TileInfo.TerrainType.Mountain:
-				shape.modulate = Color.ROSY_BROWN
-			TileInfo.TerrainType.Plains:
-				shape.modulate = Color.LIGHT_YELLOW
-		
-		baseModulate = shape.modulate
-
 var coordinates: Map.Coordinates:
+	get:
+		return coordinates
 	set(value):
 		coordinates = value
 
@@ -42,7 +79,6 @@ var coordinates: Map.Coordinates:
 		$Debug/S.text = str(coordinates.s)
 
 var isHovered: bool
-var baseModulate: Color
 
 func get_neighbours() -> Array[Tile]:
 	var neighbours: Array[Tile] = []
@@ -65,13 +101,13 @@ func is_corner() -> bool:
 func is_edge() -> bool:
 	return Utility.is_edge_tile(self, map.radius)
 
-func _physics_process(_delta: float) -> void:
-	if isHovered:
-		shape.modulate = baseModulate * (pingpong(Time.get_ticks_msec() / 1000.0, 1.0) + .5)
-	else:
-		shape.modulate = baseModulate
-
 func _ready() -> void:
 	assert(map != null)
 	scale = Vector2.ONE * .2
 	create_tween().tween_property(self, 'scale', Vector2.ONE, .2)
+	shape.points_updated.connect(_on_points_updated)
+	_on_points_updated(shape.polygon)
+
+func _on_points_updated(points: PackedVector2Array):
+	body_shape.polygon = points
+	effect_area_shape.polygon = points

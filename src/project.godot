@@ -42,6 +42,11 @@ texture={
 "mipmaps/generate": true
 }
 
+[layer_names]
+
+2d_physics/layer_1="paddle"
+2d_physics/layer_2="tile"
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

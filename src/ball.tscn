@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://b3mq0lw2q8pl4"]
+
+[ext_resource type="PackedScene" uid="uid://c57sfkee815gl" path="res://map/polygon.tscn" id="1_6on2a"]
+[ext_resource type="Script" path="res://ball.gd" id="1_a5y2h"]
+
+[node name="RB" type="RigidBody2D"]
+collision_layer = 3
+collision_mask = 3
+gravity_scale = 0.0
+continuous_cd = 2
+contact_monitor = true
+max_contacts_reported = 2
+script = ExtResource("1_a5y2h")
+
+[node name="Shape" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(8, 0, 7.60845, 2.47214, 6.47214, 4.70228, 4.70228, 6.47214, 2.47214, 7.60845, 4.89843e-16, 8, -2.47214, 7.60845, -4.70228, 6.47214, -6.47214, 4.70228, -7.60845, 2.47214, -8, 9.79685e-16, -7.60845, -2.47214, -6.47214, -4.70228, -4.70228, -6.47214, -2.47214, -7.60845, -1.46953e-15, -8, 2.47214, -7.60845, 4.70228, -6.47214, 6.47214, -4.70228, 7.60845, -2.47214)
+
+[node name="Polygon" parent="." instance=ExtResource("1_6on2a")]
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(8, 0, 7.60845, 2.47214, 6.47214, 4.70228, 4.70228, 6.47214, 2.47214, 7.60845, 4.89843e-16, 8, -2.47214, 7.60845, -4.70228, 6.47214, -6.47214, 4.70228, -7.60845, 2.47214, -8, 9.79685e-16, -7.60845, -2.47214, -6.47214, -4.70228, -4.70228, -6.47214, -2.47214, -7.60845, -1.46953e-15, -8, 2.47214, -7.60845, 4.70228, -6.47214, 6.47214, -4.70228, 7.60845, -2.47214)
+size = 8.0
+n_sides = 20
+
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]

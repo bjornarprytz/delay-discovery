@@ -1,25 +1,48 @@
-[gd_scene load_steps=4 format=3 uid="uid://6p3vuatc5vhb"]
+[gd_scene load_steps=5 format=3 uid="uid://6p3vuatc5vhb"]
 
 [ext_resource type="Script" path="res://map/tile.gd" id="1_8g4um"]
 [ext_resource type="PackedScene" uid="uid://c57sfkee815gl" path="res://map/polygon.tscn" id="1_jf52k"]
 [ext_resource type="Texture2D" uid="uid://85p4vam34uiy" path="res://icon.svg" id="3_j85qx"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_5r7re"]
+bounce = 1.0
+
 [node name="Tile" type="Node2D"]
 script = ExtResource("1_8g4um")
+
+[node name="Body" type="StaticBody2D" parent="."]
+unique_name_in_owner = true
+physics_material_override = SubResource("PhysicsMaterial_5r7re")
+
+[node name="Shape" type="CollisionPolygon2D" parent="Body"]
+polygon = PackedVector2Array(50, 0, 25, 43.3013, -25, 43.3013, -50, 6.12303e-15, -25, -43.3013, 25, -43.3013)
+
+[node name="EffectArea" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 2
+collision_mask = 2
+monitoring = false
+gravity_space_override = 3
+gravity_point = true
+gravity_point_center = Vector2(0, 0)
+gravity_direction = Vector2(0, 0)
+
+[node name="Shape" type="CollisionPolygon2D" parent="EffectArea"]
+polygon = PackedVector2Array(50, 0, 25, 43.3013, -25, 43.3013, -50, 6.12303e-15, -25, -43.3013, 25, -43.3013)
 
 [node name="Shape" parent="." instance=ExtResource("1_jf52k")]
 clip_children = 1
 polygon = PackedVector2Array(50, 0, 25, 43.3013, -25, 43.3013, -50, 6.12303e-15, -25, -43.3013, 25, -43.3013)
 size = 50.0
 border_width = 2.0
-clickable = true
 
 [node name="Texture" type="TextureRect" parent="Shape"]
 unique_name_in_owner = true
-offset_left = -56.0
-offset_top = -59.0
-offset_right = 72.0
-offset_bottom = 69.0
+offset_left = -154.0
+offset_top = -199.0
+offset_right = 2870.0
+offset_bottom = 3833.0
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("3_j85qx")
 
 [node name="Debug" type="Node2D" parent="."]
@@ -33,6 +56,8 @@ offset_right = 15.0
 offset_bottom = -7.0
 mouse_filter = 2
 text = "g"
+fit_content = true
+autowrap_mode = 0
 
 [node name="R" type="RichTextLabel" parent="Debug"]
 modulate = Color(0, 0, 0, 1)
@@ -42,6 +67,8 @@ offset_right = 34.0
 offset_bottom = 23.0
 mouse_filter = 2
 text = "g"
+fit_content = true
+autowrap_mode = 0
 
 [node name="S" type="RichTextLabel" parent="Debug"]
 modulate = Color(0, 0, 0, 1)
@@ -51,6 +78,8 @@ offset_right = 1.0
 offset_bottom = 23.0
 mouse_filter = 2
 text = "g"
+fit_content = true
+autowrap_mode = 0
 
 [node name="Hovered" type="ColorRect" parent="Debug"]
 visible = false

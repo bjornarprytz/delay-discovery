@@ -55,6 +55,9 @@ func random_color() -> Color:
 		randf_range(0, 1)
 	)
 
+func random_vector() -> Vector2:
+	return Vector2(randf_range(-1,1), randf_range(-1,1))
+
 func fade_in(node: CanvasItem, duration: float) -> Tween:
 	var tween = node.create_tween()
 	node.modulate.a = 0

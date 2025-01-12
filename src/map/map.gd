@@ -38,6 +38,8 @@ class Coordinates:
 		return Coordinates.new(q + other.q, r + other.r)
 	func add_vec(vec: Vector2i) -> Coordinates:
 		return Coordinates.new(q + vec.x, r + vec.y)
+	func diff(other: Coordinates) -> Coordinates:
+		return Coordinates.new(q - other.q, r - other.r)
 	func to_vec() -> Vector2i:
 		return Vector2i(q, r)
 
@@ -52,7 +54,6 @@ signal tileClicked(tile: Tile)
 			return
 		tileSize = value
 
-@onready var structures = $Structures
 @onready var tiles = $Tiles
 
 @export var radius: int = 5
@@ -124,10 +125,9 @@ func _add_tile(q: int, r: int) -> Tile:
 	
 	newTile.position = Utility.axial_to_pixel(q, r, tileSize)
 	newTile.size = tileSize
-	newTile.onHovered.connect(_on_tile_hovered)
-	newTile.onClicked.connect(_on_tile_clicked)
 	
 	tiles.add_child(newTile)
+	newTile.state = Tile.State.Hidden
 
 	return newTile
 
@@ -135,8 +135,3 @@ func point_to_coords(point: Vector2) -> Coordinates:
 	var q = (2.0 / 3.0 * point.x) / tileSize
 	var r = (-1.0 / 3.0 * point.x + sqrt(3) / 3.0 * point.y) / tileSize
 	return Utility.cube_round(Coordinates.new(q, r))
-
-func _on_tile_hovered(tile: Tile):
-	tileHovered.emit(tile)
-func _on_tile_clicked(tile: Tile):
-	tileClicked.emit(tile)

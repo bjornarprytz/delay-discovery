@@ -1,21 +1,14 @@
 # delay-discovery
 
 game on itch.io: [link](https://thewarlock.itch.io/delay-discovery)
-Stipulation: Physical
- 
+
+Stipulation: Physical
 
 ## TODO
 
-- Import the project into Godot
+- Add controls
+- Fix physics bug with infinite discovery
 
-- Setup itch.io page for delay-discovery [link](https://itch.io/game/new)
-  - Set Kind to HTML
-  - Set viewport dimensions (normal: 1280x720)
-  - Check SharedArrayBuffer
-  - Hit the Save button
-- Get Butler API key from [itch.io](https://itch.io/user/settings/api-keys)
-- Publish github repo
-- Add key to GitHub secrets as BUTLER_API_KEY [link](https://github.com/bjornarprytz/delay-discovery/settings/secrets/actions)
 - Push release with `./push_release.sh`
 
 ### Extra
