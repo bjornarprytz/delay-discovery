@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://cgrejd4v5ywd3"]
+
+[ext_resource type="Script" path="res://paddle.gd" id="1_rqr80"]
+
+[node name="Main" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Center" type="Node2D" parent="."]
+position = Vector2(627, 349)
+
+[node name="Paddle" type="ColorRect" parent="." node_paths=PackedStringArray("center")]
+offset_left = 589.0
+offset_top = 684.0
+offset_right = 667.0
+offset_bottom = 706.0
+pivot_offset = Vector2(39, -335)
+script = ExtResource("1_rqr80")
+center = NodePath("../Center")

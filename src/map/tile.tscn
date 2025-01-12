@@ -1,0 +1,62 @@
+[gd_scene load_steps=4 format=3 uid="uid://6p3vuatc5vhb"]
+
+[ext_resource type="Script" path="res://map/tile.gd" id="1_8g4um"]
+[ext_resource type="PackedScene" uid="uid://c57sfkee815gl" path="res://map/polygon.tscn" id="1_jf52k"]
+[ext_resource type="Texture2D" uid="uid://85p4vam34uiy" path="res://icon.svg" id="3_j85qx"]
+
+[node name="Tile" type="Node2D"]
+script = ExtResource("1_8g4um")
+
+[node name="Shape" parent="." instance=ExtResource("1_jf52k")]
+clip_children = 1
+polygon = PackedVector2Array(50, 0, 25, 43.3013, -25, 43.3013, -50, 6.12303e-15, -25, -43.3013, 25, -43.3013)
+size = 50.0
+border_width = 2.0
+clickable = true
+
+[node name="Texture" type="TextureRect" parent="Shape"]
+unique_name_in_owner = true
+offset_left = -56.0
+offset_top = -59.0
+offset_right = 72.0
+offset_bottom = 69.0
+texture = ExtResource("3_j85qx")
+
+[node name="Debug" type="Node2D" parent="."]
+visible = false
+
+[node name="Q" type="RichTextLabel" parent="Debug"]
+modulate = Color(0, 0, 0, 1)
+offset_left = -10.0
+offset_top = -31.0
+offset_right = 15.0
+offset_bottom = -7.0
+mouse_filter = 2
+text = "g"
+
+[node name="R" type="RichTextLabel" parent="Debug"]
+modulate = Color(0, 0, 0, 1)
+offset_left = 9.0
+offset_top = -1.0
+offset_right = 34.0
+offset_bottom = 23.0
+mouse_filter = 2
+text = "g"
+
+[node name="S" type="RichTextLabel" parent="Debug"]
+modulate = Color(0, 0, 0, 1)
+offset_left = -24.0
+offset_top = -1.0
+offset_right = 1.0
+offset_bottom = 23.0
+mouse_filter = 2
+text = "g"
+
+[node name="Hovered" type="ColorRect" parent="Debug"]
+visible = false
+modulate = Color(0, 0, 0, 1)
+offset_left = -27.0
+offset_top = -15.0
+offset_right = -16.0
+offset_bottom = -4.0
+mouse_filter = 2

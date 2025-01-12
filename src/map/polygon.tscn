@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://c57sfkee815gl"]
+
+[ext_resource type="Script" path="res://map/polygon.gd" id="1_v8cn7"]
+
+[node name="Polygon" type="Polygon2D"]
+polygon = PackedVector2Array(25, 0, 12.5, 21.6506, -12.5, 21.6506, -25, 3.06152e-15, -12.5, -21.6506, 12.5, -21.6506)
+script = ExtResource("1_v8cn7")
+
+[node name="Border" type="Line2D" parent="."]
+points = PackedVector2Array(25, 0, 12.5, 21.6506, -12.5, 21.6506, -25, 3.06152e-15, -12.5, -21.6506, 12.5, -21.6506)
+closed = true
+width = 0.0
+default_color = Color(0, 0, 0, 1)
+
+[node name="Clickable" type="Area2D" parent="."]
+monitorable = false
+
+[node name="Shape" type="CollisionPolygon2D" parent="Clickable"]
+polygon = PackedVector2Array(25, 0, 12.5, 21.6506, -12.5, 21.6506, -25, 3.06152e-15, -12.5, -21.6506, 12.5, -21.6506)
+
+[connection signal="input_event" from="Clickable" to="." method="_on_clickable_input_event"]
+[connection signal="mouse_entered" from="Clickable" to="." method="_on_clickable_mouse_entered"]
+[connection signal="mouse_exited" from="Clickable" to="." method="_on_clickable_mouse_exited"]
