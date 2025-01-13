@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://map/tile.gd" id="1_8g4um"]
 [ext_resource type="PackedScene" uid="uid://c57sfkee815gl" path="res://map/polygon.tscn" id="1_jf52k"]
-[ext_resource type="Texture2D" uid="uid://85p4vam34uiy" path="res://icon.svg" id="3_j85qx"]
+[ext_resource type="Texture2D" uid="uid://cr76g0j4scvio" path="res://assets/img/Back.jpg" id="3_pkam4"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_5r7re"]
 bounce = 1.0
@@ -34,7 +34,6 @@ polygon = PackedVector2Array(50, 0, 25, 43.3013, -25, 43.3013, -50, 6.12303e-15,
 clip_children = 1
 polygon = PackedVector2Array(50, 0, 25, 43.3013, -25, 43.3013, -50, 6.12303e-15, -25, -43.3013, 25, -43.3013)
 size = 50.0
-border_width = 2.0
 
 [node name="Texture" type="TextureRect" parent="Shape"]
 unique_name_in_owner = true
@@ -43,7 +42,7 @@ offset_top = -199.0
 offset_right = 2870.0
 offset_bottom = 3833.0
 scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_j85qx")
+texture = ExtResource("3_pkam4")
 
 [node name="Debug" type="Node2D" parent="."]
 visible = false

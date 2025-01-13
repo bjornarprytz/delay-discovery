@@ -35,13 +35,13 @@ var state: State:
 				
 				match type:
 					TileInfo.TerrainType.Forest:
-						texture.texture = preload("res://assets/img/Forest.jpeg")
+						texture.texture = preload("res://assets/img/Forest.jpg")
 					TileInfo.TerrainType.Water:
-						texture.texture = preload("res://assets/img/Water.jpeg")
+						texture.texture = preload("res://assets/img/Water.jpg")
 					TileInfo.TerrainType.Mountain:
-						texture.texture = preload("res://assets/img/Mountain.jpeg")
+						texture.texture = preload("res://assets/img/Mountain.jpg")
 					TileInfo.TerrainType.Plains:
-						texture.texture = preload("res://assets/img/Plains.jpeg")
+						texture.texture = preload("res://assets/img/Plains.jpg")
 		
 				texture.position += (Utility.random_vector() * 50.0)
 		state_changed.emit(old_state, state)

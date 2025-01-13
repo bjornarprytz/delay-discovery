@@ -31,8 +31,8 @@ autowrap_mode = 0
 
 [node name="Map" parent="." instance=ExtResource("2_kyjqu")]
 unique_name_in_owner = true
-tileSize = 30.0
-radius = 6
+tileSize = 50.0
+radius = 4
 
 [node name="Paddle" parent="." node_paths=PackedStringArray("center") instance=ExtResource("2_b8pg1")]
 unique_name_in_owner = true

@@ -6,8 +6,9 @@ Stipulation: Physical
 
 ## TODO
 
-- Add controls
-- Fix physics bug with infinite discovery
+- Better controls, with game pad
+- Tile mechanics
+- Ball infinite momentum
 
 - Push release with `./push_release.sh`
 

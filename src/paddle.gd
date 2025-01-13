@@ -1,12 +1,20 @@
 class_name Paddle
 extends Control
 
-const BOUNDS_GRACE = 20.0
+const BOUNDS_GRACE = 50.0
 
 @export var center: Node2D
 @export var radius: float = 300.0
 
 var _ball : Ball = null
+
+var move_factor : float = 0.0
+var inertia : float = 0.0
+
+const MOVE_SPEED : float = 20.0
+const MAX_SPEED : float = 25.0 
+const accel: float = 4.0
+const decel: float = 10.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -15,10 +23,22 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	rotation_degrees += (20.0 * delta)
+	if (move_factor == 0.0):
+		inertia = max(0.0, inertia - (decel * delta))
+	else:
+		inertia = min(MAX_SPEED, inertia + (accel * delta))
+	
+	rotation_degrees += (MOVE_SPEED * delta * move_factor * inertia)
 
 func _input(event: InputEvent) -> void:
-	if _ball != null and event is InputEventMouseButton and event.is_pressed():
+	if event.is_action_pressed("ui_left") or event.is_action_released("ui_right"):
+		move_factor += 1.0
+	if event.is_action_pressed("ui_right") or event.is_action_released("ui_left"):
+		move_factor -= 1.0
+	
+		
+	
+	if _ball != null and ((event is InputEventMouseButton and event.is_pressed()) or (event is InputEventKey and event.is_pressed() and event.keycode == KEY_SPACE)):
 		_ball.sleeping = false
 		_ball.reparent(get_tree().root)
 		var impulse = center.global_position - global_position

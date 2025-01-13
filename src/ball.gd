@@ -7,6 +7,7 @@ extends RigidBody2D
 signal out_of_bounds
 signal hit_tile(tile: Tile, from_coord: Map.Coordinates)
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -23,6 +24,6 @@ func _on_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, lo
 		
 		var vec = global_position - tile.global_position
 
-		var coord = tile.coordinates.diff(tile.map.point_to_coords(global_position + (vec * .5)))
+		var coord = tile.coordinates.diff(tile.map.point_to_coords(global_position + (vec.normalized() * tile.size)))
 
 		hit_tile.emit(tile, coord)

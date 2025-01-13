@@ -21,7 +21,6 @@ func _process(delta: float) -> void:
 	pass
 
 func _on_ball_hit_tile(tile: Tile, diff: Map.Coordinates):
-	
 	tile.state = Tile.State.Discovered
 	
 	var coords = tile.coordinates
@@ -43,7 +42,8 @@ func _on_ball_hit_tile(tile: Tile, diff: Map.Coordinates):
 			newTiles.append(t)
 	
 	for t in newTiles:
-		t.state = Tile.State.Placed
+		if t.state == Tile.State.Hidden:
+			t.state = Tile.State.Placed
 	
 	
 

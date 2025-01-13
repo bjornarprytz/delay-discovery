@@ -10,6 +10,8 @@ gravity_scale = 0.0
 continuous_cd = 2
 contact_monitor = true
 max_contacts_reported = 2
+linear_damp_mode = 1
+angular_damp_mode = 1
 script = ExtResource("1_a5y2h")
 
 [node name="Shape" type="CollisionPolygon2D" parent="."]
