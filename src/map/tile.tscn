@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cr76g0j4scvio" path="res://assets/img/Back.jpg" id="3_pkam4"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_5r7re"]
-bounce = 1.0
+bounce = 2.0
 
 [node name="Tile" type="Node2D"]
 script = ExtResource("1_8g4um")
@@ -24,16 +24,18 @@ collision_mask = 2
 monitoring = false
 gravity_space_override = 3
 gravity_point = true
+gravity_point_unit_distance = 50.0
 gravity_point_center = Vector2(0, 0)
 gravity_direction = Vector2(0, 0)
+gravity = -500.0
 
 [node name="Shape" type="CollisionPolygon2D" parent="EffectArea"]
 polygon = PackedVector2Array(50, 0, 25, 43.3013, -25, 43.3013, -50, 6.12303e-15, -25, -43.3013, 25, -43.3013)
 
 [node name="Shape" parent="." instance=ExtResource("1_jf52k")]
 clip_children = 1
-polygon = PackedVector2Array(50, 0, 25, 43.3013, -25, 43.3013, -50, 6.12303e-15, -25, -43.3013, 25, -43.3013)
-size = 50.0
+polygon = PackedVector2Array(40, 0, 20, 34.641, -20, 34.641, -40, 4.89843e-15, -20, -34.641, 20, -34.641)
+size = 40.0
 
 [node name="Texture" type="TextureRect" parent="Shape"]
 unique_name_in_owner = true
@@ -43,6 +45,13 @@ offset_right = 2870.0
 offset_bottom = 3833.0
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("3_pkam4")
+
+[node name="Border" parent="." instance=ExtResource("1_jf52k")]
+unique_name_in_owner = true
+color = Color(1, 1, 1, 0)
+polygon = PackedVector2Array(40, 0, 20, 34.641, -20, 34.641, -40, 4.89843e-15, -20, -34.641, 20, -34.641)
+size = 40.0
+border_width = 2.0
 
 [node name="Debug" type="Node2D" parent="."]
 visible = false

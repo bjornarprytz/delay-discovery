@@ -9,11 +9,11 @@ corner_radius_bottom_right = 9
 corner_radius_bottom_left = 9
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ncc7w"]
-bounce = 1.0
+bounce = 2.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fypn4"]
 radius = 9.0
-height = 70.0
+height = 110.0
 
 [node name="Paddle" type="Control"]
 layout_mode = 3
@@ -22,8 +22,8 @@ script = ExtResource("1_6jjh0")
 
 [node name="Visual" type="Panel" parent="."]
 layout_mode = 0
-offset_left = -35.0
-offset_right = 35.0
+offset_left = -55.0
+offset_right = 55.0
 offset_bottom = 18.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_fsyeq")
 

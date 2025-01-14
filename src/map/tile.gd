@@ -43,6 +43,9 @@ var state: State:
 					TileInfo.TerrainType.Plains:
 						texture.texture = preload("res://assets/img/Plains.jpg")
 		
+				border.border_color = Color.WEB_GRAY
+				border.border_width = 1
+				Utility.jelly_scale(self, 0.69)
 				texture.position += (Utility.random_vector() * 50.0)
 		state_changed.emit(old_state, state)
 
@@ -55,6 +58,8 @@ var state: State:
 		return shape.size
 	set(value):
 		shape.size = value
+
+@onready var border: RegularPolygon = %Border
 
 @onready var body: StaticBody2D = %Body
 @onready var body_shape: CollisionPolygon2D = %Body/Shape

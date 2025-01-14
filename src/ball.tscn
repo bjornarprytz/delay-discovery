@@ -1,17 +1,23 @@
-[gd_scene load_steps=3 format=3 uid="uid://b3mq0lw2q8pl4"]
+[gd_scene load_steps=4 format=3 uid="uid://b3mq0lw2q8pl4"]
 
 [ext_resource type="PackedScene" uid="uid://c57sfkee815gl" path="res://map/polygon.tscn" id="1_6on2a"]
 [ext_resource type="Script" path="res://ball.gd" id="1_a5y2h"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4j1fw"]
+bounce = 1.0
+
 [node name="RB" type="RigidBody2D"]
 collision_layer = 3
 collision_mask = 3
+physics_material_override = SubResource("PhysicsMaterial_4j1fw")
 gravity_scale = 0.0
 continuous_cd = 2
 contact_monitor = true
 max_contacts_reported = 2
 linear_damp_mode = 1
+linear_damp = -0.1
 angular_damp_mode = 1
+angular_damp = -0.1
 script = ExtResource("1_a5y2h")
 
 [node name="Shape" type="CollisionPolygon2D" parent="."]

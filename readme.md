@@ -6,9 +6,8 @@ Stipulation: Physical
 
 ## TODO
 
-- Better controls, with game pad
 - Tile mechanics
-- Ball infinite momentum
+- Ball momentum tweak
 
 - Push release with `./push_release.sh`
 

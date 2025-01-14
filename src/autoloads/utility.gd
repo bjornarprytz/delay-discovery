@@ -4,7 +4,7 @@ func shake(node: CanvasItem, duration: float, magnitude: float) -> Tween:
 	var tween = node.create_tween()
 	const shake_duration: float = 0.01
 	
-	var n_shakes: int = int(duration / shake_duration)
+	var n_shakes: int = int(duration / (shake_duration*2))
 	
 	for i in range(n_shakes):
 		tween.tween_property(node, "position", node.position + Vector2(randf_range(-magnitude, magnitude), randf_range(-magnitude, magnitude)), shake_duration)

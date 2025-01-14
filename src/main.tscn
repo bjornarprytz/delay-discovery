@@ -1,11 +1,20 @@
-[gd_scene load_steps=4 format=3 uid="uid://cgrejd4v5ywd3"]
+[gd_scene load_steps=5 format=3 uid="uid://cgrejd4v5ywd3"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_36qea"]
 [ext_resource type="PackedScene" uid="uid://crh12xrqxu5pj" path="res://paddle.tscn" id="2_b8pg1"]
 [ext_resource type="PackedScene" uid="uid://b1dfdw4rumhvh" path="res://map/map.tscn" id="2_kyjqu"]
+[ext_resource type="PackedScene" uid="uid://c57sfkee815gl" path="res://map/polygon.tscn" id="4_3fmah"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_36qea")
+
+[node name="Bounds" parent="." instance=ExtResource("4_3fmah")]
+unique_name_in_owner = true
+color = Color(1, 1, 1, 0)
+polygon = PackedVector2Array(330, 0, 325.937, 51.6234, 313.849, 101.976, 294.032, 149.817, 266.976, 193.969, 233.345, 233.345, 193.969, 266.976, 149.817, 294.032, 101.976, 313.849, 51.6234, 325.937, 2.0206e-14, 330, -51.6234, 325.937, -101.976, 313.849, -149.817, 294.032, -193.969, 266.976, -233.345, 233.345, -266.976, 193.969, -294.032, 149.817, -313.849, 101.976, -325.937, 51.6234, -330, 4.0412e-14, -325.937, -51.6234, -313.849, -101.976, -294.032, -149.817, -266.976, -193.969, -233.345, -233.345, -193.969, -266.976, -149.817, -294.032, -101.976, -313.849, -51.6234, -325.937, -6.0618e-14, -330, 51.6234, -325.937, 101.976, -313.849, 149.817, -294.032, 193.969, -266.976, 233.345, -233.345, 266.976, -193.969, 294.032, -149.817, 313.849, -101.976, 325.937, -51.6234)
+size = 330.0
+n_sides = 40
+border_width = 5.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -29,9 +38,47 @@ text = "3/3"
 fit_content = true
 autowrap_mode = 0
 
+[node name="GameOverText" type="RichTextLabel" parent="CanvasLayer"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 128
+bbcode_enabled = true
+text = "[rainbow]GAME OVER"
+fit_content = true
+autowrap_mode = 0
+
+[node name="WinText" type="RichTextLabel" parent="CanvasLayer"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 128
+bbcode_enabled = true
+text = "[rainbow]WIN"
+fit_content = true
+autowrap_mode = 0
+
 [node name="Map" parent="." instance=ExtResource("2_kyjqu")]
 unique_name_in_owner = true
-tileSize = 50.0
+tileSize = 40.0
 radius = 4
 
 [node name="Paddle" parent="." node_paths=PackedStringArray("center") instance=ExtResource("2_b8pg1")]

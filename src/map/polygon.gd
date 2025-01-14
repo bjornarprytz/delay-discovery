@@ -35,12 +35,16 @@ signal points_updated(points:PackedVector2Array)
 		if (border_color == value):
 			return
 		border_color = value
+		if (border != null):
+			border.default_color = border_color
 		
 @export var border_width: float:
 	set(value):
 		if (border_width == value):
 			return
 		border_width = value
+		if (border != null):
+			border.width = border_width
 
 @export var clickable: bool:
 	set(value):
