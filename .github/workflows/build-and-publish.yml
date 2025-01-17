@@ -19,7 +19,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Export Game
-        uses: ./.github/workflows/export-game.yml
+        uses: ./github/workflows/export-game.yml
         with:
           game_name: ${{ env.GAME_NAME }}
           project_path: ${{ env.PROJECT_PATH }}
