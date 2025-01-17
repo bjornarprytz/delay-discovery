@@ -14,9 +14,15 @@ env:
 
 jobs:
   export-game:
-    uses: ./.github/workflows/export-game.yml
-    with:
-      platforms: web # Other options: windows, mac, linux
+    runs-on: ubuntu-latest
+    steps:
+      - name: Export Game
+        uses: ./.github/workflows/export-game.yml
+        with:
+          game_name: ${{ env.GAME_NAME }}
+          project_path: ${{ env.PROJECT_PATH }}
+          godot_version: ${{ env.GODOT_VERSION }}
+          platforms: web
 
   itch-io-upload:
     name: Upload to Itch.io
