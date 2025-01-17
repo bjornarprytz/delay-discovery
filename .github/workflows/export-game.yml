@@ -1,0 +1,49 @@
+name: Export Game
+
+on:
+  workflow_call:
+    inputs:
+      platforms:
+        description: "Comma-separated list of platforms to export to (windows, mac, linux, web)"
+        required: true
+        type: string
+
+jobs:
+  export-game:
+    name: Export game
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Export
+        id: export
+        uses: firebelley/godot-export@v6.0.0
+        with:
+          godot_executable_download_url: https://github.com/godotengine/godot-builds/releases/download/${{ env.GODOT_VERSION }}/Godot_v${{ env.GODOT_VERSION }}_linux.x86_64.zip
+          godot_export_templates_download_url: https://github.com/godotengine/godot-builds/releases/download/${{ env.GODOT_VERSION }}/Godot_v${{ env.GODOT_VERSION }}_export_templates.tpz
+          relative_project_path: ${{ env.PROJECT_PATH }}
+          use_preset_export_path: true
+      - name: Upload Windows Artifact
+        if: contains(inputs.platforms, 'windows')
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.GAME_NAME }}.${{ github.ref_name }}.windows
+          path: ${{ steps.export.outputs.build_directory }}/Windows Desktop
+      - name: Upload MacOS Artifact
+        if: contains(inputs.platforms, 'mac')
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.GAME_NAME }}.${{ github.ref_name }}.mac
+          path: ${{ steps.export.outputs.build_directory }}/macOS
+      - name: Upload Linux Artifact
+        if: contains(inputs.platforms, 'linux')
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.GAME_NAME }}.${{ github.ref_name }}.linux
+          path: ${{ steps.export.outputs.build_directory }}/LinuxX11
+      - name: Upload Web Artifact
+        if: contains(inputs.platforms, 'web')
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.GAME_NAME }}.${{ github.ref_name }}.web
+          path: ${{ steps.export.outputs.build_directory }}/Web
