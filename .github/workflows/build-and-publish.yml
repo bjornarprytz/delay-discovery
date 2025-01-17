@@ -16,6 +16,8 @@ jobs:
   export-game:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
       - name: Export Game
         uses: ./.github/workflows/export-game.yml
         with:
