@@ -6,9 +6,6 @@ Stipulation: Physical
 
 ## TODO
 
-- Tile mechanics
-- Ball momentum tweak
-
 - Push release with `./push_release.sh`
 
 ### Extra

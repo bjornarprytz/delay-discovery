@@ -135,3 +135,11 @@ func point_to_coords(point: Vector2) -> Coordinates:
 	var q = (2.0 / 3.0 * point.x) / tileSize
 	var r = (-1.0 / 3.0 * point.x + sqrt(3) / 3.0 * point.y) / tileSize
 	return Utility.cube_round(Coordinates.new(q, r))
+
+
+func get_tiles_of_type_and_state(type: TileInfo.TerrainType, state: Tile.State) -> Array[Tile]:
+	var result: Array[Tile] = []
+	for t in get_tiles():
+		if t.type == type and t.state == state:
+			result.push_back(t)
+	return result

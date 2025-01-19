@@ -10,7 +10,6 @@ bounce = 1.0
 collision_layer = 3
 collision_mask = 3
 physics_material_override = SubResource("PhysicsMaterial_4j1fw")
-gravity_scale = 0.0
 continuous_cd = 2
 contact_monitor = true
 max_contacts_reported = 2
@@ -19,6 +18,7 @@ linear_damp = -0.1
 angular_damp_mode = 1
 angular_damp = -0.1
 script = ExtResource("1_a5y2h")
+bounds_radius = 340.0
 
 [node name="Shape" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(8, 0, 7.60845, 2.47214, 6.47214, 4.70228, 4.70228, 6.47214, 2.47214, 7.60845, 4.89843e-16, 8, -2.47214, 7.60845, -4.70228, 6.47214, -6.47214, 4.70228, -7.60845, 2.47214, -8, 9.79685e-16, -7.60845, -2.47214, -6.47214, -4.70228, -4.70228, -6.47214, -2.47214, -7.60845, -1.46953e-15, -8, 2.47214, -7.60845, 4.70228, -6.47214, 6.47214, -4.70228, 7.60845, -2.47214)

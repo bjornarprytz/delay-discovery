@@ -5,6 +5,8 @@ var map: Map
 
 signal state_changed(old_state, new_state)
 
+var is_being_teleported_to: bool = false
+
 enum State {
 	Init,
 	Hidden,
@@ -43,6 +45,8 @@ var state: State:
 					TileInfo.TerrainType.Plains:
 						texture.texture = preload("res://assets/img/Plains.jpg")
 		
+				if (type != TileInfo.TerrainType.Mountain):
+					effect_area.gravity_space_override = Area2D.SPACE_OVERRIDE_DISABLED
 				border.border_color = Color.WEB_GRAY
 				border.border_width = 1
 				Utility.jelly_scale(self, 0.69)
@@ -100,12 +104,6 @@ func get_relative_tile(displacement: Vector2i) -> Tile:
 	var targetCoords = coordinates.add_vec(displacement)
 	return map.get_tile(targetCoords)
 
-func is_corner() -> bool:
-	return Utility.is_corner_tile(self, map.radius)
-
-func is_edge() -> bool:
-	return Utility.is_edge_tile(self, map.radius)
-
 func _ready() -> void:
 	assert(map != null)
 	scale = Vector2.ONE * .2
@@ -116,3 +114,48 @@ func _ready() -> void:
 func _on_points_updated(points: PackedVector2Array):
 	body_shape.polygon = points
 	effect_area_shape.polygon = points
+
+
+func _on_effect_area_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+	if (body is Ball):
+		if (is_being_teleported_to):
+			is_being_teleported_to = false
+			return
+		apply_effect(body as Ball)
+
+func apply_effect(ball: Ball):
+	match type:
+		TileInfo.TerrainType.Forest:
+			ball.sleeping = true
+			ball.hide()
+			ball.set_deferred("global_position", global_position)
+			await get_tree().create_timer(.69).timeout
+			ball.sleeping = false
+			ball.show()
+			ball.apply_impulse(Utility.random_vector().normalized() * 169.0)
+		TileInfo.TerrainType.Water:
+			var waters = map.get_tiles_of_type_and_state(TileInfo.TerrainType.Water, Tile.State.Discovered)
+
+			waters.shuffle()
+
+			for w in waters:
+				if w != self:
+					w.teleport_to(ball)
+					break
+		TileInfo.TerrainType.Mountain:
+			pass
+		TileInfo.TerrainType.Plains:
+			ball.linear_velocity *= 1.1
+
+func teleport_to(ball: Ball):
+	is_being_teleported_to = true
+	var cur_velocity = ball.linear_velocity
+	ball.sleeping = true
+	ball.hide()
+	
+	ball.set_deferred("global_position", global_position)
+	await get_tree().create_timer(.69).timeout
+
+	ball.sleeping = false
+	ball.show()
+	ball.apply_impulse(cur_velocity.normalized() * 169.0)
