@@ -10,7 +10,7 @@ env:
   ITCHIO_USERNAME: thewarlock
   GAME_NAME: delay-discovery
   PROJECT_PATH: "./src/"
-  GODOT_VERSION: 4.3-stable
+  GODOT_VERSION: 4.4-beta1
 
 jobs:
   export-game:

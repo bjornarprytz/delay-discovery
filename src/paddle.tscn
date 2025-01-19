@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://crh12xrqxu5pj"]
 
-[ext_resource type="Script" path="res://paddle.gd" id="1_6jjh0"]
+[ext_resource type="Script" uid="uid://c5436inq70yah" path="res://paddle.gd" id="1_6jjh0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fsyeq"]
 corner_radius_top_left = 9

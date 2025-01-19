@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://b3mq0lw2q8pl4"]
 
 [ext_resource type="PackedScene" uid="uid://c57sfkee815gl" path="res://map/polygon.tscn" id="1_6on2a"]
-[ext_resource type="Script" path="res://ball.gd" id="1_a5y2h"]
+[ext_resource type="Script" uid="uid://cbjhciiqfab3y" path="res://ball.gd" id="1_a5y2h"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4j1fw"]
 bounce = 1.0

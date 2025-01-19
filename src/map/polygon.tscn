@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c57sfkee815gl"]
 
-[ext_resource type="Script" path="res://map/polygon.gd" id="1_v8cn7"]
+[ext_resource type="Script" uid="uid://i41sgxj2a7iw" path="res://map/polygon.gd" id="1_v8cn7"]
 
 [node name="Polygon" type="Polygon2D"]
 polygon = PackedVector2Array(25, 0, 12.5, 21.6506, -12.5, 21.6506, -25, 3.06152e-15, -12.5, -21.6506, 12.5, -21.6506)

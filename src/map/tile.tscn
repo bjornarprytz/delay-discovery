@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://6p3vuatc5vhb"]
 
-[ext_resource type="Script" path="res://map/tile.gd" id="1_8g4um"]
+[ext_resource type="Script" uid="uid://dejif18v4fuh5" path="res://map/tile.gd" id="1_8g4um"]
 [ext_resource type="PackedScene" uid="uid://c57sfkee815gl" path="res://map/polygon.tscn" id="1_jf52k"]
 [ext_resource type="Texture2D" uid="uid://cr76g0j4scvio" path="res://assets/img/Back.jpg" id="3_pkam4"]
 
