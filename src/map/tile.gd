@@ -6,6 +6,7 @@ var map: Map
 signal state_changed(old_state, new_state)
 
 var is_being_teleported_to: bool = false
+@onready var audio: AudioStreamPlayer2D = %Audio
 
 enum State {
 	Init,
@@ -128,6 +129,11 @@ func apply_effect(ball: Ball):
 		TileInfo.TerrainType.Forest:
 			ball.sleeping = true
 			ball.hide()
+			
+			audio.stream = preload("res://assets/audio/086374_shaken-bush-40116.mp3")
+			audio.pitch_scale = randf_range(.9, 1.1)
+			audio.play()
+			
 			ball.set_deferred("global_position", global_position)
 			await get_tree().create_timer(.69).timeout
 			ball.sleeping = false
@@ -137,6 +143,10 @@ func apply_effect(ball: Ball):
 			var waters = map.get_tiles_of_type_and_state(TileInfo.TerrainType.Water, Tile.State.Discovered)
 
 			waters.shuffle()
+			
+			audio.stream = preload("res://assets/audio/water-splash-46402.mp3")
+			audio.pitch_scale = randf_range(.9, 1.1)
+			audio.play()
 
 			for w in waters:
 				if w != self:
