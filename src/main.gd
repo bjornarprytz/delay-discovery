@@ -54,9 +54,9 @@ func _on_hit_paddle():
 	current_air_time = 0.0
 
 
-func _process(delta: float) -> void:
-	current_air_time += delta
+func _process(delta: float) -> void:    
 	if live_ball != null:
+		current_air_time += delta
 		compas.rotation = lerp_angle(compas.rotation, live_ball.linear_velocity.angle() + PI / 2, 0.069) 
 		velocity_text.text = "%.2f" % live_ball.linear_velocity.length()
 		air_time_text.text = "%.2f" % current_air_time

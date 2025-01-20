@@ -26,7 +26,14 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	var inputVector = Input.get_vector("ui_left", "ui_right", "ui_down", "ui_up")
+	var inputVector = Vector2.ZERO
+	
+	if (Input.get_connected_joypads().size() > 0):
+		inputVector = Input.get_vector("ui_left", "ui_right", "ui_down", "ui_up")
+	else:
+		inputVector = (center.global_position - get_global_mouse_position())
+		inputVector.x *= -1
+
 	
 	if (inputVector.length() > .8):
 		target_rotation = -rad_to_deg(inputVector.angle()) - 90.0
@@ -44,18 +51,26 @@ func _process(delta: float) -> void:
 
 func _input(event: InputEvent) -> void:
 
+	var joyPadConnected = Input.get_connected_joypads().size() > 0
+
 	if event.is_action_pressed("ui_left") or event.is_action_released("ui_right"):
 		move_factor += 1.0
 	if event.is_action_pressed("ui_right") or event.is_action_released("ui_left"):
 		move_factor -= 1.0
 	
 		
-	if _ball != null and event is InputEventJoypadButton and event.is_pressed() and event.button_index == JOY_BUTTON_A:
-		_ball.sleeping = false
-		_ball.reparent(get_tree().root)
-		var impulse = center.global_position - global_position
-		_ball.apply_impulse(impulse)
-		_ball = null
+	if _ball != null:
+		if joyPadConnected && event is InputEventJoypadButton and event.is_pressed() and event.button_index == JOY_BUTTON_A:
+			launch_ball()
+		elif !joyPadConnected && event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
+			launch_ball()
+
+func launch_ball():
+	_ball.sleeping = false
+	_ball.reparent(get_tree().root)
+	var impulse = center.global_position - global_position
+	_ball.apply_impulse(impulse)
+	_ball = null
 
 func splash(amount: int):
 	score_splash.amount = amount
