@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://cgrejd4v5ywd3"]
+[gd_scene load_steps=6 format=3 uid="uid://cgrejd4v5ywd3"]
 
 [ext_resource type="Script" uid="uid://tp28iu7ohnfr" path="res://main.gd" id="1_36qea"]
 [ext_resource type="PackedScene" uid="uid://crh12xrqxu5pj" path="res://paddle.tscn" id="2_b8pg1"]
 [ext_resource type="PackedScene" uid="uid://b1dfdw4rumhvh" path="res://map/map.tscn" id="2_kyjqu"]
+[ext_resource type="Texture2D" uid="uid://cwts7pcxhmcor" path="res://assets/img/white-square.png" id="3_lquwl"]
 [ext_resource type="PackedScene" uid="uid://c57sfkee815gl" path="res://map/polygon.tscn" id="4_3fmah"]
 
 [node name="Main" type="Node2D"]
@@ -31,10 +32,38 @@ grow_horizontal = 0
 [node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Lives"]
 layout_mode = 2
 
-[node name="LivesText" type="RichTextLabel" parent="CanvasLayer/Lives/CenterContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Lives/CenterContainer"]
+layout_mode = 2
+
+[node name="Lives" type="HBoxContainer" parent="CanvasLayer/Lives/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="LivesHeader" type="RichTextLabel" parent="CanvasLayer/Lives/CenterContainer/VBoxContainer/Lives"]
+layout_mode = 2
+text = "HP:"
+fit_content = true
+autowrap_mode = 0
+
+[node name="LivesText" type="RichTextLabel" parent="CanvasLayer/Lives/CenterContainer/VBoxContainer/Lives"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "3/3"
+fit_content = true
+autowrap_mode = 0
+
+[node name="Score" type="HBoxContainer" parent="CanvasLayer/Lives/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ScoreHeader" type="RichTextLabel" parent="CanvasLayer/Lives/CenterContainer/VBoxContainer/Score"]
+layout_mode = 2
+text = "VP:"
+fit_content = true
+autowrap_mode = 0
+
+[node name="ScoreText" type="RichTextLabel" parent="CanvasLayer/Lives/CenterContainer/VBoxContainer/Score"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0"
 fit_content = true
 autowrap_mode = 0
 
@@ -73,6 +102,84 @@ grow_vertical = 2
 theme_override_font_sizes/normal_font_size = 128
 bbcode_enabled = true
 text = "[rainbow]WIN"
+fit_content = true
+autowrap_mode = 0
+
+[node name="Diag" type="PanelContainer" parent="CanvasLayer"]
+offset_left = 5.0
+offset_top = 4.0
+offset_right = 128.0
+offset_bottom = 194.0
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Diag"]
+layout_mode = 2
+
+[node name="VB" type="VBoxContainer" parent="CanvasLayer/Diag/CenterContainer"]
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Diag/CenterContainer/VB"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="CanvasLayer/Diag/CenterContainer/VB/CenterContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="Compas" type="TextureRect" parent="CanvasLayer/Diag/CenterContainer/VB/CenterContainer/Control"]
+unique_name_in_owner = true
+layout_mode = 2
+offset_left = 42.0
+offset_top = 9.0
+offset_right = 58.0
+offset_bottom = 91.0
+pivot_offset = Vector2(8, 41)
+texture = ExtResource("3_lquwl")
+
+[node name="RichTextLabel" type="ColorRect" parent="CanvasLayer/Diag/CenterContainer/VB/CenterContainer/Control/Compas"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = -3.0
+offset_right = 12.0
+offset_bottom = 15.0
+rotation = -0.785398
+color = Color(0, 0, 0, 1)
+
+[node name="RichTextLabel2" type="ColorRect" parent="CanvasLayer/Diag/CenterContainer/VB/CenterContainer/Control/Compas"]
+offset_left = 4.0
+offset_top = -6.0
+offset_right = 11.0
+offset_bottom = 12.0
+rotation = 0.785398
+color = Color(0, 0, 0, 1)
+
+[node name="Velocity" type="HBoxContainer" parent="CanvasLayer/Diag/CenterContainer/VB"]
+layout_mode = 2
+
+[node name="Header" type="RichTextLabel" parent="CanvasLayer/Diag/CenterContainer/VB/Velocity"]
+layout_mode = 2
+text = "Vel:"
+fit_content = true
+autowrap_mode = 0
+
+[node name="VelocityText" type="RichTextLabel" parent="CanvasLayer/Diag/CenterContainer/VB/Velocity"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0.0"
+fit_content = true
+autowrap_mode = 0
+
+[node name="AirTime" type="HBoxContainer" parent="CanvasLayer/Diag/CenterContainer/VB"]
+layout_mode = 2
+
+[node name="Header" type="RichTextLabel" parent="CanvasLayer/Diag/CenterContainer/VB/AirTime"]
+layout_mode = 2
+text = "Air:"
+fit_content = true
+autowrap_mode = 0
+
+[node name="AirTimeText" type="RichTextLabel" parent="CanvasLayer/Diag/CenterContainer/VB/AirTime"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0.0"
 fit_content = true
 autowrap_mode = 0
 

@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://crh12xrqxu5pj"]
+[gd_scene load_steps=7 format=3 uid="uid://crh12xrqxu5pj"]
 
 [ext_resource type="Script" uid="uid://c5436inq70yah" path="res://paddle.gd" id="1_6jjh0"]
+[ext_resource type="Texture2D" uid="uid://cwts7pcxhmcor" path="res://assets/img/white-square.png" id="2_tbytw"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fsyeq"]
 corner_radius_top_left = 9
@@ -14,6 +15,11 @@ bounce = 2.0
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fypn4"]
 radius = 9.0
 height = 110.0
+
+[sub_resource type="Curve" id="Curve_r112f"]
+_limits = [-1.0, 1.0, 0.0, 1.0]
+_data = [Vector2(0, -0.838046), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [node name="Paddle" type="Control"]
 layout_mode = 3
@@ -35,3 +41,24 @@ physics_material_override = SubResource("PhysicsMaterial_ncc7w")
 position = Vector2(0, 7)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_fypn4")
+
+[node name="ScoreSplash" type="CPUParticles2D" parent="."]
+unique_name_in_owner = true
+emitting = false
+texture = ExtResource("2_tbytw")
+lifetime = 0.69
+one_shot = true
+explosiveness = 0.8
+lifetime_randomness = 0.69
+direction = Vector2(0, 1)
+spread = 30.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 169.0
+initial_velocity_max = 269.0
+angular_velocity_min = -20.0
+angular_velocity_max = 69.0
+scale_amount_min = 0.2
+scale_amount_max = 0.69
+hue_variation_min = -0.69
+hue_variation_max = 0.69
+hue_variation_curve = SubResource("Curve_r112f")

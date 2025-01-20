@@ -5,6 +5,7 @@ const BOUNDS_GRACE = 50.0
 
 @export var center: Node2D
 @export var radius: float = 300.0
+@onready var score_splash: CPUParticles2D = %ScoreSplash
 
 var _ball: Ball = null
 
@@ -55,6 +56,10 @@ func _input(event: InputEvent) -> void:
 		var impulse = center.global_position - global_position
 		_ball.apply_impulse(impulse)
 		_ball = null
+
+func splash(amount: int):
+	score_splash.amount = amount
+	score_splash.emitting = true
 
 func prime() -> Ball:
 	var ball = Create.ball()

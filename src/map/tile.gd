@@ -160,6 +160,7 @@ func apply_effect(ball: Ball):
 func teleport_to(ball: Ball):
 	is_being_teleported_to = true
 	var cur_velocity = ball.linear_velocity
+
 	ball.sleeping = true
 	ball.hide()
 	
@@ -168,4 +169,4 @@ func teleport_to(ball: Ball):
 
 	ball.sleeping = false
 	ball.show()
-	ball.apply_impulse(cur_velocity.normalized() * 169.0)
+	ball.apply_impulse(cur_velocity.normalized().rotated(randf_range(-PI/16, PI/16)) * 169.0)

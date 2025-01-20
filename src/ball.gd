@@ -25,9 +25,11 @@ func _on_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, lo
 	if body.owner is Tile:
 		var tile = body.owner as Tile
 		hit_tile.emit(tile)
+		Events.hit_tile.emit(tile)
 		hit_something = true
 	
 	if body.owner is Paddle:
+		Events.hit_paddle.emit()
 		hit_something = true
 		
 	if hit_something:
