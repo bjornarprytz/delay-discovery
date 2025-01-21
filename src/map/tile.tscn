@@ -48,6 +48,7 @@ texture = ExtResource("3_pkam4")
 
 [node name="Border" parent="." instance=ExtResource("1_jf52k")]
 unique_name_in_owner = true
+scale = Vector2(0.981495, 0.981495)
 color = Color(1, 1, 1, 0)
 polygon = PackedVector2Array(40, 0, 20, 34.641, -20, 34.641, -40, 4.89843e-15, -20, -34.641, 20, -34.641)
 size = 40.0

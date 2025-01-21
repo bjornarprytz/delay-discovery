@@ -4,6 +4,7 @@ extends RigidBody2D
 @export var center: Node2D
 @export var bounds_radius: float = 300.0
 @onready var audio: AudioStreamPlayer2D = %Audio
+@onready var polygon: RegularPolygon = %Polygon
 
 signal out_of_bounds
 signal hit_tile(tile: Tile)
@@ -36,6 +37,6 @@ func _on_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, lo
 		audio.pitch_scale = randf_range(.9,1.1)
 		audio.play()
 
-		modulate = Utility.random_color()
+		polygon.modulate = Utility.random_color()
 		
 		

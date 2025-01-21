@@ -6,8 +6,9 @@ const BOUNDS_GRACE = 50.0
 @export var center: Node2D
 @export var radius: float = 300.0
 @onready var score_splash: CPUParticles2D = %ScoreSplash
+@onready var visual: Panel = %Visual
 
-var _ball: Ball = null
+var ball: Ball = null
 
 var move_factor: float = 0.0
 var inertia: float = 0.0
@@ -25,7 +26,7 @@ func _ready() -> void:
 	pivot_offset = Vector2.UP * radius
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	var inputVector = Vector2.ZERO
 	
 	if (Input.get_connected_joypads().size() > 0):
@@ -58,32 +59,32 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_right") or event.is_action_released("ui_left"):
 		move_factor -= 1.0
 	
+	if (event.is_action_pressed("launch")):
+		if ball != null:
+			launch_ball()
+		else:
+			var tween = create_tween()
+			tween.tween_property(visual, "position:y", -20.0, 0.069)
+			tween.tween_property(visual, "position:y", 0.0, 0.069)
 		
-	if _ball != null:
-		if joyPadConnected && event is InputEventJoypadButton and event.is_pressed() and event.button_index == JOY_BUTTON_A:
-			launch_ball()
-		elif !joyPadConnected && event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
-			launch_ball()
 
 func launch_ball():
-	_ball.sleeping = false
-	_ball.reparent(get_tree().root)
-	var impulse = center.global_position - global_position
-	_ball.apply_impulse(impulse)
-	_ball = null
+	ball.sleeping = false
+	ball.reparent(get_tree().root)
+	var impulse = (center.global_position - global_position)
+	ball.apply_impulse(impulse)
+	ball = null
 
 func splash(amount: int):
 	score_splash.amount = amount
 	score_splash.emitting = true
 
 func prime() -> Ball:
-	var ball = Create.ball()
+	ball = Create.ball()
 	
 	add_child(ball)
 	ball.sleeping = true
 	ball.center = center
 	ball.bounds_radius = radius + BOUNDS_GRACE
-	
-	_ball = ball
 	
 	return ball

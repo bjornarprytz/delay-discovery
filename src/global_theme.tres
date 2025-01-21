@@ -9,13 +9,16 @@
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a20gn"]
 texture = ExtResource("1_hanp0")
-texture_margin_left = 9.0
-texture_margin_top = 9.0
-texture_margin_right = 9.0
-texture_margin_bottom = 9.0
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
 
 [resource]
 PanelContainer/styles/panel = SubResource("StyleBoxTexture_a20gn")
+RichTextLabel/colors/default_color = Color(0, 0, 0, 1)
 RichTextLabel/font_sizes/normal_font_size = 24
 RichTextLabel/fonts/bold_font = ExtResource("2_hmq0m")
 RichTextLabel/fonts/mono_font = ExtResource("3_swvbi")

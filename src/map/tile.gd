@@ -135,6 +135,7 @@ func apply_effect(ball: Ball):
 			audio.play()
 			
 			ball.set_deferred("global_position", global_position)
+			Utility.shake(self, 0.69, 4.0)
 			await get_tree().create_timer(.69).timeout
 			ball.sleeping = false
 			ball.show()
@@ -150,12 +151,13 @@ func apply_effect(ball: Ball):
 
 			for w in waters:
 				if w != self:
+					Utility.jiggle(self, -.1)
 					w.teleport_to(ball)
 					break
 		TileInfo.TerrainType.Mountain:
 			pass
 		TileInfo.TerrainType.Plains:
-			ball.linear_velocity *= 1.1
+			ball.linear_velocity *= 1.2
 
 func teleport_to(ball: Ball):
 	is_being_teleported_to = true
@@ -166,7 +168,8 @@ func teleport_to(ball: Ball):
 	
 	ball.set_deferred("global_position", global_position)
 	await get_tree().create_timer(.69).timeout
+	Utility.jiggle(self, .1)
 
 	ball.sleeping = false
 	ball.show()
-	ball.apply_impulse(cur_velocity.normalized().rotated(randf_range(-PI/16, PI/16)) * 169.0)
+	ball.apply_impulse(cur_velocity.normalized().rotated(randf_range(-PI / 16, PI / 16)) * 169.0)

@@ -6,6 +6,9 @@ Stipulation: Physical
 
 ## TODO
 
+- Splash Screen
+- Restart
+
 - Push release with `./push_release.sh`
 
 ### Extra
