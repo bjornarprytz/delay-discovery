@@ -7,7 +7,6 @@ extends RigidBody2D
 @onready var polygon: RegularPolygon = %Polygon
 
 signal out_of_bounds
-signal hit_tile(tile: Tile)
 
 
 # Called when the node enters the scene tree for the first time.
@@ -16,6 +15,8 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if (center == null):
+		return
 	if (global_position.distance_to(center.global_position) > bounds_radius):
 		out_of_bounds.emit()
 		queue_free()
@@ -25,7 +26,6 @@ func _on_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, lo
 	var hit_something = false
 	if body.owner is Tile:
 		var tile = body.owner as Tile
-		hit_tile.emit(tile)
 		Events.hit_tile.emit(tile)
 		hit_something = true
 	
@@ -34,9 +34,7 @@ func _on_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, lo
 		hit_something = true
 		
 	if hit_something:
-		audio.pitch_scale = randf_range(.9,1.1)
+		audio.pitch_scale = randf_range(.9, 1.1)
 		audio.play()
 
 		polygon.modulate = Utility.random_color()
-		
-		

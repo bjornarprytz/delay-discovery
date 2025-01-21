@@ -2,6 +2,8 @@ extends Node2D
 
 const TILES_TO_PLACE_UPON_DISCOVERY = 2
 
+enum State {PLAYING, WON, LOST}
+
 @export var max_lives: int = 5
 
 @onready var map: Map = %Map
@@ -14,10 +16,17 @@ const TILES_TO_PLACE_UPON_DISCOVERY = 2
 @onready var velocity_text: RichTextLabel = %VelocityText
 @onready var compas: TextureRect = %Compas
 
+@onready var game_over_modulate: ColorRect = %GameOverModulate
+@onready var lost_text: RichTextLabel = %LostText
+@onready var won_text: RichTextLabel = %WonText
+@onready var lost_container: VBoxContainer = %LostContainer
+@onready var won_container: VBoxContainer = %WonContainer
+
 var lives = max_lives;
 
 var live_ball: Ball = null
 var current_air_time: float = 0.0
+var state: State = State.PLAYING
 
 var score: int = 0:
     set(value):
@@ -33,12 +42,14 @@ var score: int = 0:
 var combo: int = 0
 
 func _ready() -> void:
+    score = Events.score
     live_ball = paddle.prime()
     live_ball.out_of_bounds.connect(_on_out_of_bounds)
     map.get_tile(Map.Coordinates.from_vec(Vector2.ZERO)).state = Tile.State.Placed
 
     Events.hit_tile.connect(_on_hit_tile)
     Events.hit_paddle.connect(_on_hit_paddle)
+    Events.game_over.connect(_on_game_over)
 
 func _on_hit_tile(tile: Tile):
     score += 1
@@ -64,9 +75,8 @@ func _on_hit_tile(tile: Tile):
     if undiscoveredTiles == 0:
         score += combo
         combo = 0
-        $CanvasLayer/WinText.show()
-        $CanvasLayer/WinText.text += ": %d" % score
         live_ball.sleeping = true
+        Events.game_over.emit(true)
 
 func _on_hit_paddle():
     score += combo
@@ -76,11 +86,20 @@ func _on_hit_paddle():
 
     current_air_time = 0.0
 
+func _on_game_over(won: bool):
+    game_over_modulate.show()
+    if (won):
+        state = State.WON
+        won_container.show()
+        won_text.append_text(": %d" % score)
+    else:
+        state = State.LOST
+        lost_container.show()
 
 func _process(delta: float) -> void:
     if live_ball != null:
         var target_angle: float = 0.0;
-        if paddle.ball == null or (live_ball != null and live_ball.sleeping):
+        if paddle.ball == null and state == State.PLAYING:
             current_air_time += delta
             target_angle = paddle.rotation
         else:
@@ -89,7 +108,20 @@ func _process(delta: float) -> void:
         compas.rotation = lerp_angle(compas.rotation, target_angle, 0.069)
         velocity_text.text = "%.2f" % live_ball.linear_velocity.length()
         air_time_text.text = "%.2f" % current_air_time
+
+func _input(event: InputEvent) -> void:
+    if (state == State.PLAYING):
+        return
     
+    if (event.is_action_pressed("launch")):
+        var won = state == State.WON
+        var current_score = score
+        get_tree().reload_current_scene()
+        
+        if (won):
+            Events.score = current_score
+        else:
+            Events.score = 0
 
 func _on_out_of_bounds():
     lives -= 1
@@ -103,8 +135,7 @@ func _on_out_of_bounds():
     lives_text.text = "%d/%d" % [lives, max_lives]
     
     if lives <= 0:
-        Events.game_over.emit()
-        $CanvasLayer/GameOverText.show()
+        Events.game_over.emit(false)
         return
     
     live_ball = paddle.prime()
