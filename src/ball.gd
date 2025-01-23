@@ -8,7 +8,6 @@ extends RigidBody2D
 
 signal out_of_bounds
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	audio.stream = preload("res://assets/audio/bubble-pop-283674.mp3")
@@ -22,7 +21,6 @@ func _process(delta: float) -> void:
 		queue_free()
 
 func _on_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int) -> void:
-	
 	var hit_something = false
 	if body.owner is Tile:
 		var tile = body.owner as Tile

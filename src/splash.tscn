@@ -1,0 +1,79 @@
+[gd_scene load_steps=3 format=3 uid="uid://1pipcejrtq31"]
+
+[ext_resource type="Script" uid="uid://snuvn5wklesm" path="res://splash.gd" id="1_b04ml"]
+[ext_resource type="Texture2D" uid="uid://vesn5s4yxe65" path="res://assets/img/Mountain.jpg" id="2_50j67"]
+
+[node name="Splash" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_b04ml")
+
+[node name="Texture" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_50j67")
+expand_mode = 1
+
+[node name="Title" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -467.0
+offset_top = -69.5
+offset_right = 467.0
+offset_bottom = 69.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Text" type="RichTextLabel" parent="Title"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 96
+text = "Settlers of Ping"
+fit_content = true
+autowrap_mode = 0
+
+[node name="Tip" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -186.0
+offset_top = -73.0
+offset_right = -9.0
+offset_bottom = -8.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="Tip"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="CenterContainer" type="CenterContainer" parent="Tip/MarginContainer"]
+layout_mode = 2
+
+[node name="Text" type="RichTextLabel" parent="Tip/MarginContainer/CenterContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 32
+text = "Any key"
+fit_content = true
+autowrap_mode = 0
